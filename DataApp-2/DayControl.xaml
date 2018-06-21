@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="DataApp_2.DayControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataApp_2"
+             mc:Ignorable="d" 
+             d:DesignHeight="35" d:DesignWidth="30" Height="30" Width="30" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
+    <Border BorderBrush="Gray" BorderThickness="0.5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Name="DayTxt" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"></TextBlock>
+            <TextBlock Name="HolidayTxt" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="9"></TextBlock>
+        </Grid>
+    </Border>
+</UserControl>

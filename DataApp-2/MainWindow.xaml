@@ -1,0 +1,167 @@
+﻿<Window x:Class="DataApp_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataApp_2"
+        mc:Ignorable="d"
+        Title="Holiday" Height="730" Width="880" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize" WindowStyle="None">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Name="ButtonGird" Height="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Margin="3" Name="MinImage" Source="最小化.png" Grid.Column="1" MouseLeftButtonDown="MinImage_MouseLeftButtonDown" MouseEnter="MinImage_MouseEnter" MouseLeave="MinImage_MouseLeave"></Image>
+            <Image Margin="3" Name="ReductionImage" Source="最大化.png" Grid.Column="2" MouseLeftButtonDown="ReductionImage_MouseLeftButtonDown"  MouseEnter="ReductionImage_MouseEnter"  MouseLeave="ReductionImage_MouseLeave"></Image>
+            <Image Margin="3" Name="CloseImage" Source="关闭.png" Grid.Column="3" MouseLeftButtonDown="CloseImage_MouseLeftButtonDown" MouseEnter="CloseImage_MouseEnter" MouseLeave="CloseImage_MouseLeave"></Image>
+        </Grid>
+        <Grid Name="TopGrid" Height="40" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Name="HintLbl" Grid.Column="0" Margin="3" VerticalContentAlignment="Center" FontStyle="Italic">请在下面的日历中选择寒暑假始末时间</Label>
+            <Button Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,5" Name="CommitBtn" Click="CommitBtn_Click" Padding="2" Width="80" Height="30" IsEnabled="False">提交</Button>
+            <Button Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,5" Name="RenewBtn" Click="RenewBtn_Click" Padding="2" Width="80" Height="30" IsEnabled="False">重新制定</Button>
+            <StackPanel Name="holidayPanel" Grid.Column="3" Orientation="Horizontal" Margin="5,5" Visibility="Collapsed">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontStyle="Italic">暑 假：</TextBlock>
+                <TextBlock Name="summerbeginTxt" VerticalAlignment="Center" HorizontalAlignment="Center" FontStyle="Italic"></TextBlock>
+                <GridSplitter Margin="5" Height="1" Width="30" Background="Black" Cursor="None"/>
+                <TextBlock Name="summerendTxt" VerticalAlignment="Center" HorizontalAlignment="Center" FontStyle="Italic"></TextBlock>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontStyle="Italic" Margin="10,5">寒 假:</TextBlock>
+                <TextBlock Name="winterbeginTxt" VerticalAlignment="Center" HorizontalAlignment="Left" FontStyle="Italic"></TextBlock>
+                <GridSplitter Margin="5" Height="1" Width="30" Background="Black" Cursor="None"/>
+                <TextBlock Name="winterendTxt" VerticalAlignment="Center" HorizontalAlignment="Center" FontStyle="Italic"></TextBlock>
+            </StackPanel>
+            <Image Name="detailImage" Grid.Column="3" Source="查看详情.png" Width="15" HorizontalAlignment="Right" Margin="10" MouseLeftButtonUp="detailImage_MouseLeftButtonUp" MouseEnter="detailImage_MouseEnter" MouseLeave="detailImage_MouseLeave" Visibility="Collapsed">
+                <Image.ToolTip>
+                    <TextBlock Name="tooltipTxt">查看详情</TextBlock>
+                </Image.ToolTip>
+            </Image>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition x:Name="Details" Width="0"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="1" BorderThickness="1"></Border>
+            <Grid Grid.Column="1" Focusable="True" Background="#e7e7e7" Margin="0,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">假期总天数(包括单、双休):</TextBlock>
+                    <TextBlock Name="totalHolidayTxt"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">元 旦:</TextBlock>
+                    <TextBlock Name="yuandanStart"></TextBlock>
+                    <GridSplitter  Margin="5" Height="1" Width="30" Background="Black" Cursor="None"></GridSplitter>
+                    <TextBlock Name="yuandanEnd"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">春 节:</TextBlock>
+                    <TextBlock Name="chunjieStart"></TextBlock>
+                    <GridSplitter  Margin="5" Height="1" Width="30" Background="Black" Cursor="None"></GridSplitter>
+                    <TextBlock Name="chunjieEnd"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">清 明:</TextBlock>
+                    <TextBlock Name="qingmingStart"></TextBlock>
+                    <GridSplitter  Margin="5" Height="1" Width="30" Background="Black" Cursor="None"></GridSplitter>
+                    <TextBlock Name="qingmingEnd"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">劳 动 节:</TextBlock>
+                    <TextBlock Name="laodongStart"></TextBlock>
+                    <GridSplitter  Margin="5" Height="1" Width="30" Background="Black" Cursor="None"></GridSplitter>
+                    <TextBlock Name="laodongEnd"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">端 午:</TextBlock>
+                    <TextBlock Name="duanwuStart"></TextBlock>
+                    <GridSplitter  Margin="5" Height="1" Width="30" Background="Black" Cursor="None"></GridSplitter>
+                    <TextBlock Name="duanwuEnd"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">中 秋:</TextBlock>
+                    <TextBlock Name="zhongqiuStart"></TextBlock>
+                    <GridSplitter  Margin="5" Height="1" Width="30" Background="Black" Cursor="None"></GridSplitter>
+                    <TextBlock Name="zhongqiuEnd"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">国 庆:</TextBlock>
+                    <TextBlock Name="guoqingStart"></TextBlock>
+                    <GridSplitter  Margin="5" Height="1" Width="30" Background="Black" Cursor="None"></GridSplitter>
+                    <TextBlock Name="guoqingEnd"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">暑 假:</TextBlock>
+                    <TextBlock Name="shujiaStart"></TextBlock>
+                    <GridSplitter  Margin="5" Height="1" Width="30" Background="Black" Cursor="None"></GridSplitter>
+                    <TextBlock Name="shujiaEnd"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="10" Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">寒 假:</TextBlock>
+                    <TextBlock Name="hanjiaStart"></TextBlock>
+                    <GridSplitter  Margin="5" Height="1" Width="30" Background="Black" Cursor="None"></GridSplitter>
+                    <TextBlock Name="hanjiaEnd"></TextBlock>
+                </StackPanel>
+                <Grid Grid.Row="11" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">单 休:</TextBlock>
+                    <ListBox Grid.Row="1" Margin="5" Name="singleweekendList" HorizontalAlignment="Left"></ListBox>
+                </Grid>
+                <Grid Grid.Row="12" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0" FontStyle="Italic">双 休:</TextBlock>
+                    <ListBox Grid.Row="1" Name="doubleweekendList" HorizontalAlignment="Left" Margin="5"></ListBox>
+                </Grid>
+            </Grid>
+            <Grid Name="ProgressGrid" Visibility="Collapsed" Background="LightGray" Opacity="0.8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Name="LoadTxtBlock" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="5">正在加载，请稍后...</TextBlock>
+                <ProgressBar Name="LoadProgressBar" Height="15" Grid.Row="2"></ProgressBar>
+            </Grid>
+            <Grid Name="YearGrid">
+                <ScrollViewer x:Name="YearScrollViewer" Height="650">
+                    <WrapPanel Name="YearPanel" HorizontalAlignment="Center" ScrollViewer.CanContentScroll="True" Width="{Binding ElementName=YearScrollViewer, Path=Width, Mode=OneWay}">
+                    </WrapPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
